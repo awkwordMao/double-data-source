@@ -17,3 +17,12 @@ spring:
         password: 123456
 mybatis:
   mapper-locations: classpath:mapper/**/**.xml
+#  explain:
+#    enable: true
+  configuration:
+    logImpl: org.apache.ibatis.logging.stdout.StdOutImpl
+#logging:
+#  level:
+#    shiyue.jery.doubledatasourse.db2.dao: debug
+#    shiyue.jery.doubledatasourse.db1.dao: debug
+

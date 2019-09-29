@@ -4,6 +4,8 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.mybatis.spring.annotation.MapperScan;
+import org.mybatis.spring.boot.autoconfigure.MybatisProperties;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.jdbc.DataSourceBuilder;
@@ -23,6 +25,9 @@ import javax.sql.DataSource;
 @Configuration
 @MapperScan(basePackages = "shiyue.jery.doubledatasourse.db1.dao", sqlSessionTemplateRef = "db1SqlSessionTemplate")
 public class DataSource1Config {
+
+    @Autowired
+    MybatisProperties mybatisProperties;
 
     /**
      * 生成数据源。@Primary注解声明为默认数据源
@@ -50,6 +55,7 @@ public class DataSource1Config {
         sessionFactoryBean.setDataSource(dataSource);
         //TODO 如果使用xxx.xml写sql的话，要设置路径
         //  bean.setMapperLocations(new PathMatchingResourcePatternResolver().getResources("classpath:mybatis/mapper/db1/*.xml"));
+        sessionFactoryBean.setConfiguration(mybatisProperties.getConfiguration());
         return sessionFactoryBean.getObject();
     }
 
